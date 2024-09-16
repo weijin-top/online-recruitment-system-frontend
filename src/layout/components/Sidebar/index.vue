@@ -1,3 +1,11 @@
+<!--
+ * @Author: 魏进 3413105907@qq.com
+ * @Date: 2024-07-02 22:21:48
+ * @LastEditors: 魏进 3413105907@qq.com
+ * @LastEditTime: 2024-09-10 13:48:14
+ * @FilePath: \online-recruitment-system\src\layout\components\Sidebar\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
@@ -30,6 +38,17 @@ export default {
     ...mapGetters([
       'sidebar'
     ]),
+    data() {
+      return {
+        submenuOpened: false, // 标志变量，初始为 false
+        count: {
+          notViewedCount: null,
+          viewedCount: null,
+          interestedCount: null,
+          interviewCount: null
+        }
+      }
+    },
     routes() {
       return this.$router.options.routes
     },

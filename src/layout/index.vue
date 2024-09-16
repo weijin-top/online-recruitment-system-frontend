@@ -1,38 +1,52 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div class="main-container">
+    <sidebar v-if="isShowNavbar" class="sidebar-container" />
+    <div :class="{hasTagsView:needTagsView}" class="main-container" :style="{margin: !isShowNavbar ? '0' : ''}">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar v-if="isShowNavbar" />
+        <seeker-menu :is-show="!isShowNavbar" />
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main />
+      <right-panel v-if="showSettings && !isShowNavbar">
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
+// import RightPanel from '@/components/RightPanel'
+import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import SeekerMenu from './components/SeekerMenu'
+import { mapState } from 'vuex'
+import { getRole } from '@/utils/auth'
 
 export default {
   name: 'Layout',
   components: {
+    AppMain,
     Navbar,
+    // RightPanel,
+    Settings,
     Sidebar,
-    AppMain
+    TagsView,
+    SeekerMenu
   },
   mixins: [ResizeMixin],
   computed: {
-    sidebar() {
-      return this.$store.state.app.sidebar
+    isShowNavbar() {
+      return getRole() !== 'seeker'
     },
-    device() {
-      return this.$store.state.app.device
-    },
-    fixedHeader() {
-      return this.$store.state.settings.fixedHeader
-    },
+    ...mapState({
+      sidebar: state => state.app.sidebar,
+      device: state => state.app.device,
+      showSettings: state => state.settings.showSettings,
+      needTagsView: state => state.settings.tagsView,
+      fixedHeader: state => state.settings.fixedHeader
+    }),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
@@ -59,11 +73,13 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    &.mobile.openSidebar{
+
+    &.mobile.openSidebar {
       position: fixed;
       top: 0;
     }
   }
+
   .drawer-bg {
     background: #000;
     opacity: 0.3;

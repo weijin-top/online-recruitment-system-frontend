@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
@@ -14,6 +15,13 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+
+// import { createApp } from 'vue'
+// import htmlToPdf from './utils/htmlToPdf'
+
+// const app = createApp(App)
+// htmlToPdf(app) // 注册htmlToPdf方法
+// app.mount('#app')
 
 /**
  * If you don't want to use mock-server
