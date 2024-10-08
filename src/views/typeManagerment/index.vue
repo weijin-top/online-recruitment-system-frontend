@@ -94,7 +94,7 @@ export default {
     // 格式化数据
     convertData(data) {
       const root = {
-        id: '0',
+        id: 0,
         pid: null,
         label: '职位类别',
         expanded: true,

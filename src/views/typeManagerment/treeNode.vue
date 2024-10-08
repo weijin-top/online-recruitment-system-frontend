@@ -34,7 +34,12 @@
 import { savePost, modifyPost, delPost } from '@/api/post'
 export default {
   name: 'TreeNode',
-  props: ['node'],
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    node: {
+      type: Object
+    }
+  },
   data() {
     return {
       showActions: false,
@@ -125,9 +130,12 @@ export default {
     },
     onBlur() {
       this.isEditing = false
-      console.log(this.node)
       if (this.node.isNew) {
         // 添加
+        // 如果parentId就是根节点，需要移除，否则违反了数据库约束
+        if (this.node.pid === 0) {
+          delete this.node.pid
+        }
         const data = { parentId: this.node.pid, name: this.node.label }
         this.addPost(data)
       } else {
