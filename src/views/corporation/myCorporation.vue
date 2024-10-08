@@ -15,6 +15,9 @@
       <el-form-item label="公司名称" prop="name">
         <el-input v-model="companyFrom.name" clearable placeholder="公司名称" />
       </el-form-item>
+      <el-form-item label="公司别名" prop="nickname">
+        <el-input v-model="companyFrom.nickname" clearable placeholder="公司别名" />
+      </el-form-item>
       <el-form-item label="公司地址" prop="address">
         <el-input v-model="companyFrom.address" clearable placeholder="公司地址" />
       </el-form-item>
@@ -78,6 +81,7 @@ export default {
       companyFrom: {
         id: '',
         name: '',
+        nickname: '',
         address: '',
         logo: '',
         intro: ''
@@ -88,6 +92,9 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入公司名称', trigger: 'blur' }
+        ],
+        nickname: [
+          { required: true, message: '请输入公司别名', trigger: 'blur' }
         ],
         address: [
           { required: true, message: '请输入公司地址', trigger: 'blur' }
