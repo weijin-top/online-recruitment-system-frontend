@@ -14,7 +14,7 @@
       <div v-for="item in pageData.records" :key="item.id" class="item-container" @click="toPositionDetail(item.id)">
         <div class="margin-between">
           <div style="font-size: 20px;"> {{ item.name }} </div>
-          <div style="color: red;">{{ item.miniSalary / 1000 }}-{{ item.maxSalary / 1000 }}K</div>
+          <div style="color: red; width:70px; text-align: right;">{{ item.miniSalary / 1000 }}-{{ item.maxSalary / 1000 }}K</div>
         </div>
         <div class="flex-container">
           <div>{{ item.jobPlace }}</div>
@@ -64,7 +64,8 @@ export default {
         name: '',
         edu: '',
         type: '',
-        status: 1
+        status: 1,
+        orderBy: 1
       }
 
     }

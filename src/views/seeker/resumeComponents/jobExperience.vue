@@ -75,6 +75,7 @@
 
 <script>
 import { queryJob, saveJob, modifyJob, delJob } from '@/api/job'
+import { showConfirmDialog } from '@/utils/confirmService'
 // import EduSelector from '@/components/Selector/eduSelector'
 export default {
   name: 'JobExperience',
@@ -129,14 +130,21 @@ export default {
   },
   methods: {
     deleteJob(item, index) {
-      if (item.id !== '' || item.id !== undefined) {
-        delJob(item.id).then(res => {
-          this.handleResult(res)
-        }).catch(error => {
-          console.error('修改失败:', error)
+      showConfirmDialog('此操作将永久删除该工作/实习经历, 是否继续?')
+        .then(() => {
+          // 用户点击了确定
+          if (item.id !== '' || item.id !== undefined) {
+            delJob(item.id).then(res => {
+              this.handleResult(res)
+            }).catch(error => {
+              console.error('修改失败:', error)
+            })
+          }
+          this.listJobFrom.splice(index, 1)
         })
-      }
-      this.listJobFrom.splice(index, 1)
+        .catch(() => {
+          // 用户点击了取消
+        })
     },
     addJob() {
       this.listJobFrom.push({

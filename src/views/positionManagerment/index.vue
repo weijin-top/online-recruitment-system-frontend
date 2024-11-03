@@ -73,7 +73,7 @@
               type="primary"
               size="mini"
               plain
-              :disabled="scope.row.status !== 1"
+              :disabled="scope.row.status === 3"
               @click="toPublishPage(scope.row.id)"
             >修改</el-button>
             <el-button
@@ -160,6 +160,7 @@ import PositionStatusSelector from '@/components/Selector/positionStatusSelector
 import EducationMap from '@/components/Map/educationMap'
 import PositionStatusMap from '@/components/Map/positionStatusMap'
 import { pagingPosition, getPositionDetails, /* auditPosition,*/ cancelPosition } from '@/api/position'
+import { showConfirmDialog } from '@/utils/confirmService'
 
 export default {
   components: { EduSelector, PostSelector, PositionStatusSelector, EducationMap, PositionStatusMap },
@@ -212,20 +213,27 @@ export default {
       this.listLoading = false
     },
     stopRecruit(id) {
-      cancelPosition(id).then(res => {
-        if (res.code) {
-          this.$message({
-            type: 'success',
-            message: res.msg
+      showConfirmDialog('此操作不可恢复, 是否继续?')
+        .then(() => {
+          // 用户点击了确定
+          cancelPosition(id).then(res => {
+            if (res.code) {
+              this.$message({
+                type: 'success',
+                message: res.msg
+              })
+              this.fetchData()
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.msg
+              })
+            }
           })
-          this.fetchData()
-        } else {
-          this.$message({
-            type: 'error',
-            message: res.msg
-          })
-        }
-      })
+        })
+        .catch(() => {
+          // 用户点击了取消
+        })
     },
     // audit(id, status) {
     //   auditPosition(id, status).then(response => {

@@ -1,11 +1,3 @@
-<!--
- * @Author: 魏进 3413105907@qq.com
- * @Date: 2024-09-06 20:12:17
- * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-14 21:24:49
- * @FilePath: \online-recruitment-system\src\views\seeker\resumeComponents\resumePreview.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
   <div class="container">
     <div id="resume-content" class="resume-container">
@@ -66,7 +58,7 @@
         <div> <i class="el-icon-s-order icon-style" style=" color: rgb(37,62,98); font-size: 24px;" /></div>
       </div>
       <!-- 专业技能 -->
-      <div class="parent-container description-line-height">
+      <div class="parent-container description-line-height content-font">
         {{ resume.skill }}
       </div>
       <!-- 分隔线 -->
@@ -118,15 +110,15 @@
         <div> <i class="el-icon-s-order icon-style" style=" color: rgb(37,62,98); font-size: 24px;" /></div>
       </div>
       <!-- 个人总结 -->
-      <div class="parent-container description-line-height">
+      <div class="parent-container description-line-height content-font">
         {{ resume.summary }}
       </div>
     </div>
     <!-- 导出按钮 -->
     <div class="btn-goup-box">
-      <el-button type="primary" @click="exportToPdf()">导出简历</el-button>
-      <el-button v-if="resumeDeliveryId !== null" type="success" @click="dialogFormVisible = true">邀约面试</el-button>
-      <el-button v-if="resumeDeliveryId !== null" type="warning" @click="clickInsertedBtn()">感兴趣</el-button>
+      <el-button v-if="isShowExportBtn" type="primary" @click="exportToPdf()">导出简历</el-button>
+      <el-button v-if="isShowInterviewBtn" type="success" @click="dialogFormVisible = true">邀约面试</el-button>
+      <el-button v-if="isShowInterestedBtn" type="warning" @click="clickInsertedBtn()">感兴趣</el-button>
       <el-button v-if="isShowReturnBtn" type="danger" @click="clickReturnBtn()">返回</el-button>
     </div>
     <!-- 邀约面试弹出框 -->
@@ -183,6 +175,18 @@ export default {
     isShowReturnBtn: {
       default: false,
       type: Boolean
+    },
+    isShowInterviewBtn: {
+      default: false,
+      type: Boolean
+    },
+    isShowInterestedBtn: {
+      default: false,
+      type: Boolean
+    },
+    isShowExportBtn: {
+      default: true,
+      type: Boolean
     }
   },
   // components: { EduSelector },
@@ -227,6 +231,9 @@ export default {
   },
   created() {
     this.getResume()
+  },
+  beforeDestroy() {
+    this.userId = null
   },
   methods: {
     exportToPdf() {
@@ -321,6 +328,7 @@ export default {
     display: flex;
     width: 100% !important;
 }
+
 .resume-container{
     width: 210mm;  /* A4纸的宽度 */
     height: 297mm; /* A4纸的高度 */

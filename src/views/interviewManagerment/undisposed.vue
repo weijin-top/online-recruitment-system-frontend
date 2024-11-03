@@ -80,7 +80,7 @@
       </div>
     </div>
     <!-- 弹出框 -->
-    <el-dialog title="查看面试结果" :visible.sync="dialogFormVisible">
+    <el-dialog title="通知面试结果" :visible.sync="dialogFormVisible">
       <el-form
         ref="result"
         :model="result"
@@ -121,7 +121,7 @@ export default {
         pageNum: 1,
         pageSize: 20,
         positionName: '',
-        status: 1
+        status: 0
       },
       pageData: {},
       listLoading: true,
@@ -163,6 +163,9 @@ export default {
             })
             this.dialogFormVisible = false
             this.currentInterviewId = null
+            this.result.id = null
+            this.result.status = null
+            this.resultRemark = null
             this.fetchData()
           } else {
             this.$message({

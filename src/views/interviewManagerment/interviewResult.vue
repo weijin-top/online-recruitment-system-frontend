@@ -116,7 +116,7 @@ export default {
         pageNum: 1,
         pageSize: 20,
         positionName: '',
-        status: null
+        status: '1,2'
       },
       pageData: {},
       listLoading: true,

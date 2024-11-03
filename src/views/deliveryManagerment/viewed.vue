@@ -94,6 +94,9 @@
       <resume-preview
         :user-id="currentLookUserId"
         :is-show-return-btn="true"
+        :is-show-export-btn="false"
+        :is-show-interested-btn="false"
+        :is-show-interview-btn="false"
         @data-updated="handleDataUpdated"
       />
     </div>

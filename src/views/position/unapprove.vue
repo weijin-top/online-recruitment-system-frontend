@@ -101,7 +101,7 @@
       </div>
       <div>
         <div class="label_style">公司名称</div>
-        <div class="content_style">{{ position.positionName }}</div>
+        <div class="content_style">{{ position.companyName }}</div>
       </div>
       <div>
         <div class="label_style">职位要求</div>

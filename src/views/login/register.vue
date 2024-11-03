@@ -2,7 +2,7 @@
  * @Author: st 2946594574@qq.com
  * @Date: 2024-03-04 10:55:05
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-15 16:36:12
+ * @LastEditTime: 2024-11-03 14:22:25
  * @FilePath: \com-project\src\views\login\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -17,7 +17,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Rigister Form</h3>
+        <h3 class="title">注册</h3>
       </div>
 
       <el-form-item prop="username">
@@ -66,7 +66,7 @@
             placeholder="code"
             name="code"
             type="text"
-            tabindex="1"
+            tabindex="3"
             auto-complete="on"
           />
         </el-form-item>
@@ -116,11 +116,11 @@ import { register } from '@/api/auth'
 import { Message } from 'element-ui'
 // import {Encrypt} from '@/utils/Secret'
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('用户名只能是英文'))
       } else {
         callback()
       }

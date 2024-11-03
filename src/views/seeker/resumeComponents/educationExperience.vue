@@ -2,7 +2,7 @@
  * @Author: 魏进 3413105907@qq.com
  * @Date: 2024-09-04 22:02:49
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-14 21:29:57
+ * @LastEditTime: 2024-10-09 20:16:04
  * @FilePath: \online-recruitment-system\src\views\seeker\resumeComponents\info.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -77,12 +77,14 @@
           </div>
         </el-form>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
 import { queryEducation, saveEducation, modifyEducation, delEducation } from '@/api/education'
+import { showConfirmDialog } from '@/utils/confirmService'
 import EduSelector from '@/components/Selector/eduSelector'
 export default {
   name: 'EducationExperience',
@@ -90,6 +92,7 @@ export default {
   data: function() {
     return {
       labelPosition: 'right',
+      showConfirm: false,
       listEduFrom: [{
         id: '',
         schoolName: '',
@@ -137,14 +140,21 @@ export default {
   },
   methods: {
     deleteEdu(item, index) {
-      if (item.id !== '' || item.id !== undefined) {
-        delEducation(item.id).then(res => {
-          this.handleResult(res)
-        }).catch(error => {
-          console.error('修改失败:', error)
+      showConfirmDialog('此操作将永久删除该教育经历, 是否继续?')
+        .then(() => {
+          // 用户点击了确定
+          if (item.id !== '' || item.id !== undefined) {
+            delEducation(item.id).then(res => {
+              this.handleResult(res)
+            }).catch(error => {
+              console.error('删除失败:', error)
+            })
+          }
+          this.listEduFrom.splice(index, 1)
         })
-      }
-      this.listEduFrom.splice(index, 1)
+        .catch(() => {
+          // 用户点击了取消
+        })
     },
     addEdu() {
       this.listEduFrom.push({

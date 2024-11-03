@@ -88,7 +88,7 @@ export default {
       },
       server: 'api/common/uploadImage',
       header: {},
-      accept: '.jpg,.jpeg,.png,.webp,.svg',
+      accept: '.jpg,.jpeg,.png,.webp,.svg,.bmp',
       rules: {
         name: [
           { required: true, message: '请输入公司名称', trigger: 'blur' }
@@ -132,7 +132,6 @@ export default {
         delete this.companyFrom.status
         // 添加
         if (this.companyFrom.id === '' || this.companyFrom.id === undefined) {
-          console.log('222')
           delete this.companyFrom.id
           saveCompany(this.companyFrom).then(res => {
             this.handleResult(res)
@@ -175,6 +174,7 @@ export default {
           type: 'error',
           message: response.msg
         })
+        this.companyFrom.logo = null
       }
     },
     handleError(err, file, fileList) {

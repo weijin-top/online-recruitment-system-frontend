@@ -160,13 +160,13 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isImage = file.type.startsWith('image/')
-      const isLt2M = file.size / 1024 < 500n
+      const isLt2M = file.size < (1024 * 1024 * 2)
 
       if (!isImage) {
         this.$message.error('上传的文件必须是图片!')
       }
       if (!isLt2M) {
-        this.$message.error('上传的图片大小不能超过 500K!')
+        this.$message.error('上传的图片不能超过 500KB!')
       }
       return isImage && isLt2M
     },
@@ -202,6 +202,13 @@ export default {
           console.log('error submit!!')
           return false
         }
+        if (this.passwordFrom.newPassword !== this.passwordFrom.confirmPassword) {
+          this.$message({
+            type: 'error',
+            message: '新密码和确认密码不一致'
+          })
+          return
+        }
         // 构建参数
         this.passwordFrom.id = getUserId()
         const res = await modifyPassword(this.passwordFrom)
@@ -236,11 +243,11 @@ export default {
     },
     roleMap(roleId) {
       if (roleId === 1) {
-        return '管理员'
+        return '求职者'
       } else if (roleId === 2) {
         return '招聘者'
       } else if (roleId === 3) {
-        return '求职者'
+        return '管理员'
       }
     },
     formatDateTime(dateTime) {

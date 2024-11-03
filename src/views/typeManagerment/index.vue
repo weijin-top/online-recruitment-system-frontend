@@ -135,5 +135,6 @@ export default {
 <style scoped>
 .type-contianer{
   margin-top: 20px;
+  padding-bottom: 100px;
 }
 </style>

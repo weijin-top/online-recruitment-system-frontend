@@ -17,7 +17,7 @@
       <span v-if="!isEditing" class="node-label">
         {{ node.label }}
       </span>
-      <input v-if="isEditing" v-model="node.label" type="text" @blur="onBlur" @keyup.enter="onBlur">
+      <input v-if="isEditing" v-model="node.label" type="text" @blur="onBlur" @keyup.enter="$event.target.blur()">
 
       <!-- 编辑、添加、删除按钮 -->
       <i v-if="showActions && node.level !== 0" class="material-icons action-icon" @click="handleEdit">edit</i>
@@ -32,6 +32,7 @@
 
 <script>
 import { savePost, modifyPost, delPost } from '@/api/post'
+import { showConfirmDialog } from '@/utils/confirmService'
 export default {
   name: 'TreeNode',
   props: {
@@ -81,7 +82,8 @@ export default {
       }
       // 判断是否在展开/收起图标上，如果是则不隐藏操作图标
       const expandIcon = this.$el.querySelector('.expand-icon')
-      const isMouseOnExpandIcon = expandIcon && expandIcon.contains(this.$el.ownerDocument.elementFromPoint(event.clientX, event.clientY))
+      const isMouseOnExpandIcon = expandIcon &&
+        expandIcon.contains(this.$el.ownerDocument.elementFromPoint(event.clientX, event.clientY))
       if (isMouseOnExpandIcon) {
         return
       }
@@ -123,12 +125,18 @@ export default {
       // }
       // this.resetActions();
       // console.log(this.node)
-      this.deletePost(this.node)
-
+      showConfirmDialog('此操作将永久删除该职位类别, 是否继续?')
+        .then(() => {
+          // 用户点击了确定
+          this.deletePost(this.node)
+        })
+        .catch(() => {
+          // 用户点击了取消
+        })
       // this.$emit('remove', this.node)
       this.resetActions()
     },
-    onBlur() {
+    onBlur(event) {
       this.isEditing = false
       if (this.node.isNew) {
         // 添加
@@ -143,8 +151,7 @@ export default {
         const data = { id: this.node.id, name: this.node.label }
         this.updatePost(data)
       }
-
-      this.$emit('edit', this.node)
+      // this.$emit('edit', this.node)
       this.resetActions()
     },
     resetActions() {

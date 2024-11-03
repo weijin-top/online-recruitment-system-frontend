@@ -95,6 +95,9 @@
         :user-id="currentLookUserId"
         :resume-delivery-id="currentLookResumeDeliveryId"
         :is-show-return-btn="true"
+        :is-show-export-btn="false"
+        :is-show-interested-btn="true"
+        :is-show-interview-btn="true"
         @data-updated="handleDataUpdated"
       />
     </div>

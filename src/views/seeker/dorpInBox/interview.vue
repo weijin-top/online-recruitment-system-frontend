@@ -44,7 +44,7 @@
     <div v-if="pageData.records.length !== 0" class="block flex-center">
       <el-pagination
         :current-page="pageData.current"
-        :page-sizes="[18, 30, 42, 60]"
+        :page-sizes="[10, 15, 20, 25]"
         :page-size="pageData.size"
         layout="total, sizes, prev, pager, next, jumper"
         :total="pageData.total"
@@ -70,7 +70,7 @@ export default {
       },
       query: {
         pageNum: 1,
-        pageSize: 20,
+        pageSize: 10,
         status: 3
       },
       hoverColor: 'inherit' // 初始值
@@ -141,6 +141,7 @@ export default {
   padding: 0 2em;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 .block{
   /* 水平居中 */

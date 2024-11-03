@@ -93,7 +93,11 @@
     <div v-if="centerDialogVisible" class="resume-box">
       <resume-preview
         :user-id="currentLookUserId"
+        :resume-delivery-id="currentLookResumeDeliveryId"
         :is-show-return-btn="true"
+        :is-show-export-btn="false"
+        :is-show-interested-btn="false"
+        :is-show-interview-btn="true"
         @data-updated="handleDataUpdated"
       />
     </div>
@@ -124,8 +128,8 @@ export default {
       listLoading: true,
       centerDialogVisible: false,
       position: {},
-      currentLookUserId: null
-      // currentLookResumeDeliveryId: null
+      currentLookUserId: null,
+      currentLookResumeDeliveryId: null
     }
   },
   created() {
@@ -169,13 +173,15 @@ export default {
     },
     visibleDialog(userId, resumeDeliveryId) {
       this.currentLookUserId = userId
-      // this.currentLookResumeDeliveryId = resumeDeliveryId
+      this.currentLookResumeDeliveryId = resumeDeliveryId
       this.centerDialogVisible = true
     },
     handleDataUpdated(data) {
       this.currentLookUserId = null
       // this.currentLookResumeDeliveryId = null
       this.centerDialogVisible = data
+      // 返回了刷新数据
+      this.fetchData()
     }
   }
 }

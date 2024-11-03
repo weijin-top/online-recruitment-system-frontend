@@ -2,7 +2,7 @@
  * @Author: 魏进 3413105907@qq.com
  * @Date: 2024-09-04 22:02:49
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-06 20:06:55
+ * @LastEditTime: 2024-10-09 20:19:15
  * @FilePath: \online-recruitment-system\src\views\seeker\resumeComponents\info.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -83,6 +83,7 @@
 
 <script>
 import { queryProject, saveProject, modifyProject, delProject } from '@/api/project'
+import { showConfirmDialog } from '@/utils/confirmService'
 // import EduSelector from '@/components/Selector/eduSelector'
 export default {
   name: 'EducationExperience',
@@ -137,14 +138,21 @@ export default {
   },
   methods: {
     deleteProject(item, index) {
-      if (item.id !== '' || item.id !== undefined) {
-        delProject(item.id).then(res => {
-          this.handleResult(res)
-        }).catch(error => {
-          console.error('修改失败:', error)
+      showConfirmDialog('此操作将永久删除该项目经历, 是否继续?')
+        .then(() => {
+          // 用户点击了确定
+          if (item.id !== '' || item.id !== undefined) {
+            delProject(item.id).then(res => {
+              this.handleResult(res)
+            }).catch(error => {
+              console.error('修改失败:', error)
+            })
+          }
+          this.listProjectFrom.splice(index, 1)
         })
-      }
-      this.listProjectFrom.splice(index, 1)
+        .catch(() => {
+          // 用户点击了取消
+        })
     },
     addProject() {
       this.listProjectFrom.push({
@@ -273,6 +281,6 @@ export default {
   }
   ::v-deep .el-textarea__inner{
     width: 45vw;
-    height: 15vh;
+    height: 20vh;
   }
 </style>

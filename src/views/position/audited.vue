@@ -57,8 +57,8 @@
         <template slot-scope="scope">
           <span>
             <el-button type="primary" size="mini" plain @click="visibleDialog(scope.row.id)">查看</el-button>
-            <el-button type="success" size="mini" plain @click="auditPosition(scope.row.id,1)">通过</el-button>
-            <el-button type="danger" size="mini" plain @click="auditPosition(scope.row.id,2)">不通过</el-button>
+            <el-button type="success" size="mini" plain @click="handleAuditPosition(scope.row.id,1)">通过</el-button>
+            <el-button type="danger" size="mini" plain @click="handleAuditPosition(scope.row.id,2)">不通过</el-button>
           </span>
         </template>
       </el-table-column>
@@ -101,7 +101,7 @@
       </div>
       <div>
         <div class="label_style">公司名称</div>
-        <div class="content_style">{{ position.positionName }}</div>
+        <div class="content_style">{{ position.companyName }}</div>
       </div>
       <div>
         <div class="label_style">职位要求</div>
@@ -132,6 +132,7 @@ import EduSelector from '@/components/Selector/eduSelector'
 import PostSelector from '@/components/Selector/postSelector'
 import EducationMap from '@/components/Map/educationMap'
 import { pagingPosition, getPositionDetails, auditPosition } from '@/api/position'
+import { showConfirmDialog } from '@/utils/confirmService'
 
 export default {
   components: { EduSelector, PostSelector, EducationMap },
@@ -176,14 +177,28 @@ export default {
       }
       this.listLoading = false
     },
-    auditPosition(id, status) {
+    handleAuditPosition(id, status) {
+      if (status === 1) {
+        this.checkPosition(id, status)
+      } else if (status === 2) {
+        showConfirmDialog('此操作不可恢复, 是否继续?')
+          .then(() => {
+          // 用户点击了确定
+            this.checkPosition(id, status)
+          })
+          .catch(() => {
+          // 用户点击了取消
+          })
+      }
+    },
+    checkPosition(id, status) {
       auditPosition(id, status).then(response => {
         if (response.code) {
           this.$message({
             type: 'success',
             message: response.msg
           })
-          this.fetchData(this.pageNum, this.pageSize, this.name)
+          this.fetchData()
         } else {
           this.$message({
             type: 'error',

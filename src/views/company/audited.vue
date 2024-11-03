@@ -42,8 +42,8 @@
         <template slot-scope="scope">
           <span>
             <el-button type="primary" size="mini" plain @click="visibleDialog(scope.row.id)">查看</el-button>
-            <el-button type="success" size="mini" plain @click="auditCompany(scope.row.id,1)">通过</el-button>
-            <el-button type="danger" size="mini" plain @click="auditCompany(scope.row.id,2)">不通过</el-button>
+            <el-button type="success" size="mini" plain @click="handeleAuditCompany(scope.row.id,1)">通过</el-button>
+            <el-button type="danger" size="mini" plain @click="handeleAuditCompany(scope.row.id,2)">不通过</el-button>
           </span>
         </template>
       </el-table-column>
@@ -104,6 +104,7 @@
 
 <script>
 import { pageCompanies, auditCompany, singleCompany } from '@/api/company'
+import { showConfirmDialog } from '@/utils/confirmService'
 
 export default {
   data() {
@@ -135,7 +136,21 @@ export default {
       }
       this.listLoading = false
     },
-    auditCompany(id, status) {
+    handeleAuditCompany(id, status) {
+      if (status === 1) {
+        this.checkCompany(id, status)
+      } else if (status === 2) {
+        showConfirmDialog('此操作不可恢复, 是否继续?')
+          .then(() => {
+          // 用户点击了确定
+            this.checkCompany(id, status)
+          })
+          .catch(() => {
+          // 用户点击了取消
+          })
+      }
+    },
+    checkCompany(id, status) {
       auditCompany(id, status).then(response => {
         if (response.code) {
           this.$message({
