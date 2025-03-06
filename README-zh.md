@@ -1,16 +1,41 @@
   
 
-### online-recruitment-system-frontend
+# online-recruitment-system-frontend | 求职招聘系统
+
+#### 友情提示
+> 1.**项目演示地址**: [bilibili演示地址](https://www.bilibili.com/video/BV1tYPUeJEaF/)
+
+> 2.**后端仓库地址**：[配套项目后端地址](https://gitee.com/weijin-top/online-recruitment-system-backend.git)
+
+#### 介绍
+
+本项目为求职招聘系统，使用veu-admin-tamplate 为和基础框架对各功能意义实现，该仓库为**前端**，本项目已经完成，如有疑问可以在issue中提问，看见会仔细回答各位
+
+**如果各位喜欢，麻烦各位大佬点点Star**
 
 
-### 项目演示地址 [bilibili演示地址](https://www.bilibili.com/video/BV1tYPUeJEaF/)
-### 后端地址 [配套后端地址](https://gitee.com/weijin-top/online-recruitment-system-backend.git)
+#### 安装
+
+1. 拉取项目
+
+   ``` bash
+   git clone https://gitee.com/weijin-top/online-recruitment-system-frontend.git
+   ```
+
+2. 下载依赖（npm i）
+
+3. 运行项目（npm run dev）
+
+#### 联系方式
+
+ 微信：18784876446  
+ QQ： 3413105907
 
 
 ### 项目展示
 
 
-### 管理员
+#### 管理员
 
 ![输入图片说明](https://foruda.gitee.com/images/1740993185425522503/dd4b2b62_13366917.png "屏幕截图")
 
@@ -18,7 +43,7 @@
 
 ![输入图片说明](https://foruda.gitee.com/images/1740993255338168977/cb684ecf_13366917.png "屏幕截图")
 
-### 招聘者
+#### 招聘者
 
 ![输入图片说明](https://foruda.gitee.com/images/1740993300165808457/2304547c_13366917.png "屏幕截图")
 
@@ -26,7 +51,7 @@
 
 ![输入图片说明](https://foruda.gitee.com/images/1740993323767628636/2c07296d_13366917.png "屏幕截图")
 
-### 求职者
+#### 求职者
 
 ![输入图片说明](https://foruda.gitee.com/images/1740993348114849960/d23830fb_13366917.png "屏幕截图")
 
