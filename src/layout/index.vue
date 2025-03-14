@@ -18,7 +18,7 @@
 
 <script>
 // import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar /*, TagsView */ } from './components'
+import { AppMain, Navbar, /*Settings,*/ Sidebar /*, TagsView */ } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import SeekerMenu from './components/SeekerMenu'
 import { mapState } from 'vuex'
@@ -30,7 +30,7 @@ export default {
     AppMain,
     Navbar,
     // RightPanel,
-    Settings,
+    // Settings,
     Sidebar,
     // TagsView,
     SeekerMenu

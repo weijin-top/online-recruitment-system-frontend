@@ -130,7 +130,7 @@ export default {
 }
 .position-container{
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   padding-bottom: 30px;
 }

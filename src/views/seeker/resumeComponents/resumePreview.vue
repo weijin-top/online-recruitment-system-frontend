@@ -407,7 +407,7 @@ export default {
 .btn-goup-box{
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   margin-right: 0px;
 }
 .btn-goup-box > button{
