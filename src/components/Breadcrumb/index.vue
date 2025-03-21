@@ -1,3 +1,4 @@
+
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
@@ -52,12 +53,13 @@ export default {
       return toPath(params)
     },
     handleLink(item) {
-      const { redirect, path } = item
-      if (redirect) {
-        this.$router.push(redirect)
-        return
-      }
-      this.$router.push(this.pathCompile(path))
+      // 不允许点击面包屑跳转页面
+      // const { redirect, path } = item
+      // if (redirect) {
+      //   this.$router.push(redirect)
+      //   return
+      // }
+      // this.$router.push(this.pathCompile(path))
     }
   }
 }
