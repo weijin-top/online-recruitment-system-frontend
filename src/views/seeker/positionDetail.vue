@@ -54,6 +54,7 @@
 <script>
 import { getPositionDetails } from '@/api/position'
 import { saveResumeDelivery } from '@/api/resumeDelivery'
+import { getUserId } from '@/utils/auth'
 import EducationMap from '@/components/Map/educationMap'
 export default {
   name: 'MyResume',
@@ -71,7 +72,14 @@ export default {
   methods: {
     handleDelivery(positionId) {
       saveResumeDelivery(positionId).then(res => {
-        this.handleResult(res)
+        const success = this.handleResult(res)
+        if (success) {
+          const jsonMsg = { receiverId: this.positionDetail.userId,
+            content: `您好，看到您发布的【${this.positionDetail.name}】职位信息，我很感兴趣，希望可以进一步沟通`,
+            senderId: getUserId() }
+          // websocket发送信息
+          this.$sendMessage(jsonMsg)
+        }
       })
     },
     queryPositionDetialById(id) {
@@ -90,11 +98,13 @@ export default {
           message: res.msg
         })
         this.queryPositionDetialById(this.currentPositionId)
+        return true
       } else {
         this.$message({
           type: 'error',
           message: res.msg
         })
+        return false
       }
     },
     formatDateTime(dateString) {
@@ -114,6 +124,17 @@ export default {
     },
     padZero(num, size = 2) {
       return num.toString().padStart(size, '0')
+    },
+    // 获取当前时间
+    getCurrentTime() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = String(now.getMonth() + 1).padStart(2, '0')
+      const day = String(now.getDate()).padStart(2, '0')
+      const hours = String(now.getHours()).padStart(2, '0')
+      const minutes = String(now.getMinutes()).padStart(2, '0')
+      const secends = String(now.getSeconds()).padStart(2, '0')
+      return `${year}-${month}-${day} ${hours}:${minutes}:${secends}`
     }
   }
 }

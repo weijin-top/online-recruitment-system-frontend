@@ -2,7 +2,7 @@
  * @Author: st 2946594574@qq.com
  * @Date: 2024-03-04 10:55:05
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-11-03 14:22:25
+ * @LastEditTime: 2025-03-29 09:59:05
  * @FilePath: \com-project\src\views\login\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -27,7 +27,7 @@
         <el-input
           ref="username"
           v-model="registerForm.username"
-          placeholder="Username"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -43,7 +43,7 @@
           ref="password"
           v-model="registerForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -63,7 +63,7 @@
             ref="code"
             v-model="registerForm.code"
             style="width: 300px"
-            placeholder="code"
+            placeholder="验证码"
             name="code"
             type="text"
             tabindex="3"
@@ -103,7 +103,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click="registerFn"
-      >rigister</el-button>
+      >注册</el-button>
     </el-form>
   </div>
 </template>

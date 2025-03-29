@@ -3,6 +3,8 @@ import Cookies from 'js-cookie'
 const TokenKey = 'online_recruitment_system_token'
 const UserIdKey = 'online_recruitment_system_user_id'
 const roleKey = 'online_recruitment_system_token_role'
+const currentAvatar = 'online_recruitment_system_token_current_avatar'
+
 export function getToken() {
   return Cookies.get(TokenKey)
 }
@@ -37,4 +39,16 @@ export function setRole(role) {
 
 export function removeRole() {
   return localStorage.removeItem(roleKey)
+}
+
+export function getAvatar() {
+  return localStorage.getItem(currentAvatar)
+}
+
+export function setAvatar(avatar) {
+  return localStorage.setItem(currentAvatar, avatar)
+}
+
+export function removeAvatar() {
+  return localStorage.removeItem(currentAvatar)
 }

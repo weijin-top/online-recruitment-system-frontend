@@ -1,3 +1,11 @@
+<!--
+ * @Author: 魏进 3413105907@qq.com
+ * @Date: 2024-08-23 17:02:07
+ * @LastEditors: 魏进 3413105907@qq.com
+ * @LastEditTime: 2025-03-24 10:26:10
+ * @FilePath: \online-recruitment-system-frontend\src\views\positionManagerment\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="app-container">
     <!-- 表单输入框 -->
@@ -101,55 +109,7 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <!-- 弹出框 -->
-    <!-- <el-dialog
-      title="职位详情"
-      :visible.sync="centerDialogVisible"
-      width="40%"
-      height="70vh"
-      center
-    >
-      <div class="company_title_style">
-        <span class="position">{{ position.name }}</span>
-      </div>
 
-      <div style="margin-top:1em;">
-        <span class="label_style" style="margin-right:1em;">职位类别</span>
-        <span class="content_style" style="margin-right:1em;">{{ position.postName }}</span>
-        <span class="label_style" style="margin-right:1em;">职位状态</span>
-        <span style="margin-right:1em;">
-          <el-tag v-if="position.status === 0">待审核</el-tag>
-          <el-tag v-else-if="position.status === 1" type="success">通过</el-tag>
-          <el-tag v-else-if="position.status === 2" type="danger">不通过</el-tag>
-        </span>
-        <span class="label_style" style="margin-right:1em;">学历要求</span>
-        <education-map :education="position.education" />
-      </div>
-      <div>
-        <div class="label_style">公司名称</div>
-        <div class="content_style">{{ position.positionName }}</div>
-      </div>
-      <div>
-        <div class="label_style">职位要求</div>
-        <div class="content_style">{{ position.jobRequire }}</div>
-      </div>
-      <div>
-        <div class="label_style">工作地址</div>
-        <div class="content_style">
-          <i class="el-icon-location-outline" />
-          <span>
-            {{ position.jobPlace }}
-          </span>
-        </div>
-      </div>
-      <div>
-        <div class="label_style">招聘人数</div>
-        <div class="content_style">{{ position.number }} 人</div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="danger" plain @click="centerDialogVisible = false">关 闭</el-button>
-      </span>
-    </el-dialog> -->
   </div>
 </template>
 

@@ -2,15 +2,17 @@
  * @Author: 魏进 3413105907@qq.com
  * @Date: 2024-07-02 22:21:48
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-14 21:53:49
+ * @LastEditTime: 2025-03-29 10:04:40
  * @FilePath: \vue-admin-template\src\store\modules\user.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { login, logout } from '@/api/auth'
 import { getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, setUserId, setRole, removeRole, removeUserId } from '@/utils/auth'
+import { getToken, setToken, removeToken, setUserId, setRole, removeRole, getRole,
+  removeUserId, setAvatar, removeAvatar } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { parseJwt } from '@/utils/jwtUtils'
+import { connectWebSocket, disconnectWebSocket } from '@/utils/websocket'
 
 const getDefaultState = () => {
   return {
@@ -43,32 +45,28 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    // const { username, password } = userInfo
-    // return new Promise((resolve, reject) => {
-    //   login({ username: username.trim(), password: password }).then(response => {
-    //     const { data } = response
-    //     commit('SET_TOKEN', data.token)
-    //     setToken(data.token)
-    //     resolve()
-    //   }).catch(error => {
-    //     reject(error)
-    //   })
-    // })
+  login({ commit, dispatch }, userInfo) {
     return new Promise((resolve, reject) => {
       login(userInfo).then(response => {
         const { data } = response
         if (response.code === 1) {
           const info = parseJwt(data)
           const user = JSON.parse(info.userInfo)
+          // 存储用户id
           setUserId(user.id)
+          // 存储当前用户头像
+          setAvatar(user.avatar)
           const roleId = user.roleId
           if (roleId === 1) {
             setRole('seeker')
             commit('SET_ROLES', ['seeker'])
+            // 建立websocket连接
+            connectWebSocket()
           } else if (roleId === 2) {
             setRole('recruiter')
             commit('SET_ROLES', ['recruiter'])
+            // 建立websocket连接
+            connectWebSocket()
           } else if (roleId === 3) {
             setRole('admin')
             commit('SET_ROLES', ['admin'])
@@ -96,9 +94,7 @@ const actions = {
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-
         const { name, avatar } = data
-
         commit('SET_NAME', name)
         // 这里保存是解决刷新页面头像不显示
         commit('SET_AVATAR', avatar)
@@ -110,14 +106,19 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state }) {
+  logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
         removeRole()
         removeUserId()
+        removeAvatar()
         resetRouter()
         commit('RESET_STATE')
+        // 如果不是管理员，断开websocket连接
+        if (getRole !== 'admin') {
+          disconnectWebSocket()
+        }
         resolve()
       }).catch(error => {
         reject(error)

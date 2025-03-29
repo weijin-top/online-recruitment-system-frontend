@@ -2,12 +2,14 @@
  * @Author: 魏进 3413105907@qq.com
  * @Date: 2024-09-02 23:24:31
  * @LastEditors: 魏进 3413105907@qq.com
- * @LastEditTime: 2024-09-14 21:13:40
+ * @LastEditTime: 2025-03-24 10:39:00
  * @FilePath: \online-recruitment-system\src\layout\components\Avatar.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="right-menu">
+    <!-- <el-menu-item index="/dorpInBox/notViewed" @click="toPath('/dorpInBox/notViewed')" class="msg-menu">消息</el-menu-item> -->
+    <div class="message-div" @click="toPath('/message/msgIndex')">消息</div>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -47,6 +49,9 @@ export default {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login`)
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    toPath(path) {
+      this.$router.push({ path: path })
     }
     // toInfoPage() {
     //   this.$router.push({ path: '/info/userInfo' })
@@ -57,13 +62,22 @@ export default {
 
 <style lang="scss" scoped>
 .right-menu {
+    display: flex;
     float: right;
     height: 100%;
     line-height: 50px;
     &:focus {
       outline: none;
     }
-
+    .message-div{
+      margin-right: 20px;
+      font-size: 14px;
+      color: #5a5e66;
+      cursor: pointer;
+    }
+    .message-div:hover{
+      color: black;
+    }
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;

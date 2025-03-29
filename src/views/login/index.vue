@@ -13,7 +13,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -30,7 +30,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -48,7 +48,7 @@
             ref="code"
             v-model="loginForm.code"
             style="width: 300px"
-            placeholder="code"
+            placeholder="验证码"
             name="code"
             type="text"
             tabindex="3"
@@ -72,9 +72,9 @@
         margin-bottom: 20px;
       "
       >
-        <router-link style="color: #66b1ff" to="/register"> 立即注册 </router-link>
+        <router-link style="color: #66b1ff" to="/register"> 注册 </router-link>
       </div>
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -165,7 +165,10 @@ export default {
             this.loading = false
           }).catch((res) => {
             this.$message({ type: 'error', message: res.msg })
+            console.log('---------')
+            console.log(res)
             this.getVerify()
+            this.loginForm.code = ''
             this.loading = false
           })
         } else {

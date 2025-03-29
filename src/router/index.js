@@ -33,11 +33,13 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
   {
     path: '/register',
+    name: 'register',
     component: () => import('@/views/login/register'),
     hidden: true
   },
@@ -47,7 +49,6 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -58,6 +59,18 @@ export const constantRoutes = [
       name: 'UserInfo',
       component: () => import('@/views/homePage/index'),
       meta: { title: '个人主页', icon: 'dashboard' }
+    }]
+  },
+  {
+    path: '/message',
+    hidden: true,
+    component: Layout,
+    redirect: '/message/msgIndex',
+    children: [{
+      path: 'msgIndex',
+      name: 'MsgIndex',
+      component: () => import('@/views/message/indx'),
+      meta: { title: '消息', icon: 'dashboard' }
     }]
   },
   {
