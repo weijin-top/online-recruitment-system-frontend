@@ -109,10 +109,12 @@ const actions = {
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        removeRole()
-        removeUserId()
-        removeAvatar()
+        // removeToken() // must remove  token  first
+        // removeRole()
+        // removeUserId()
+        // removeAvatar()
+        localStorage.clear()
+        sessionStorage.clear()
         resetRouter()
         commit('RESET_STATE')
         // 如果不是管理员，断开websocket连接
