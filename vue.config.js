@@ -47,9 +47,9 @@ module.exports = {
       },
       '/recruitment': {
         // 使用阿里云OSS图片代理地址
-        // target: 'https://online-recruitment-system.oss-cn-chengdu.aliyuncs.com/'
+        target: 'https://online-recruitment-system.oss-cn-chengdu.aliyuncs.com/'
         // 使用minio图片代理地址
-        target: 'http://127.0.0.1:9000/online-recruitment-system/'
+        // target: 'http://127.0.0.1:9000/online-recruitment-system/'
       }
 
     }
