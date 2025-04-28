@@ -7,7 +7,7 @@
       class="resume-delivery-container"
     >
       <!-- 职位信息 -->
-      <div class="flex-column container-item with-50">
+      <div class="flex-column container-item item-width">
         <div style="font-size: 18px;">
           <span
             :style="{
@@ -20,12 +20,12 @@
           <span :style="{ color: item.positionStatus === 3 ? 'gray' : 'inherit' }"> [{{ item.jobPlace }}] </span>
         </div>
         <div>
-          <span style="color: red; font-size: 16px" :style="{ color: item.positionStatus === 3 ? 'gray' : 'inherit' }">{{ item.miniSalary /1000 }} - {{ item.maxSalary/1000 }}K</span>
+          <span :style="{ color: item.positionStatus === 3 ? 'gray' : 'red',fontSize: '16px' }">{{ item.miniSalary /1000 }} - {{ item.maxSalary/1000 }}K</span>
           <span><education-map :education="item.education" /></span>
         </div>
       </div>
       <!-- 公司信息 -->
-      <div class="flex-center with-50">
+      <div class="flex-center item-width">
         <img :src="item.companyLogo" style="width: 60px; margin-right: 10px" alt="公司logo">
         <div class="flex-column ">
           <div style="font-size: 18px;" :style="{ color: item.positionStatus === 3 ? 'gray' : 'inherit' }">{{ item.companyNickname }}</div>
@@ -138,7 +138,7 @@ export default {
 }
 .resume-delivery-container{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   background-color: rgb(255,255,255);
   height: 100px;
@@ -160,8 +160,8 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.with-50{
-  width: 50%;
+.item-width{
+  width: 44%;
   margin-right: 20px;
 }
 .container-item > div{
