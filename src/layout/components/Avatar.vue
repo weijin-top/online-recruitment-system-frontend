@@ -47,15 +47,13 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch('user/logout')
-      this.$router.push(`/login`)
+      this.$router.push({name:'login'})
+     
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     toPath(path) {
       this.$router.push({ path: path })
     }
-    // toInfoPage() {
-    //   this.$router.push({ path: '/info/userInfo' })
-    // }
   }
 }
 </script>

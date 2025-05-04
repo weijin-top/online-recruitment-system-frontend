@@ -8,8 +8,7 @@
  */
 import { login, logout } from '@/api/auth'
 import { getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, setUserId, setRole, removeRole, getRole,
-  removeUserId, setAvatar, removeAvatar } from '@/utils/auth'
+import { getToken, setToken, removeToken, setUserId, setRole, getRole, setAvatar } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { parseJwt } from '@/utils/jwtUtils'
 import { connectWebSocket, disconnectWebSocket } from '@/utils/websocket'
