@@ -5,7 +5,7 @@
 #### 友情提示
 > 1.**项目演示地址**: [bilibili演示地址](https://www.bilibili.com/video/BV1tYPUeJEaF/)
 
-> 2.**后端仓库地址**：[配套项目后端地址](https://gitee.com/weijin-top/online-recruitment-system-backend.git)
+> 2.**后端仓库地址**：[配套项目后端地址](https://github.com/weijin-top/online-recruitment-system-backend.git)
 
 #### 介绍
 
