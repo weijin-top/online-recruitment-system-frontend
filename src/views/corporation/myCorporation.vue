@@ -34,6 +34,7 @@
           :before-upload="beforeUpload"
           :on-success="handleSuccess"
           :on-error="handleError"
+          ref="uploadRef"
         >
           <i class="el-icon-plus" />
         </el-upload>
@@ -169,6 +170,7 @@ export default {
           message: response.msg
         })
         this.companyFrom.logo = response.data // 保存图片URL到表单
+        this.$refs.uploadRef.clearFiles() // 重置上传组件的文件列表
       } else {
         this.$message({
           type: 'error',
@@ -182,6 +184,7 @@ export default {
         type: 'error',
         message: err
       })
+      this.$refs.uploadRef.clearFiles() // 重置上传组件的文件列表
     },
     beforeUpload(file) {
       const isImage = file.type.startsWith('image/')

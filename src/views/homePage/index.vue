@@ -22,6 +22,7 @@
         <el-form-item prop="avatar">
           <el-upload
             class="avatar-uploader"
+            ref="avatarUpload"
             :action="server"
             :headers="header"
             :accept="accept"
@@ -151,6 +152,7 @@ export default {
           message: response.msg
         })
         this.userFrom.avatar = response.data // 保存图片URL到表单
+        this.$refs.avatarUpload.clearFiles() // 重置上传组件状态
       } else {
         this.$message({
           type: 'error',
