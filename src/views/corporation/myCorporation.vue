@@ -188,13 +188,12 @@ export default {
     },
     beforeUpload(file) {
       const isImage = file.type.startsWith('image/')
-      const isLt2M = file.size / 1024 < 500n
-
+      const isLt2M = file.size / 1024 / 1024 < 5
       if (!isImage) {
         this.$message.error('上传的文件必须是图片!')
       }
       if (!isLt2M) {
-        this.$message.error('上传的图片大小不能超过 500K!')
+        this.$message.error('上传的图片大小不能超过 5MB!')
       }
       return isImage && isLt2M
     }

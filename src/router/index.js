@@ -87,6 +87,19 @@ export const constantRoutes = [
     }]
   },
   {
+    path: 'user',
+    component: Layout,
+    redirect: '/user/index',
+    hidden: false,
+    meta: { roles: ['admin'] },
+    children: [{
+      path: '/user',
+      name: 'UserIndex',
+      component: () => import('@/views/user/index'),
+      meta: { title: '用户管理', icon: 'el-icon-user-solid', roles: ['admin'] }
+    }]
+  },
+  {
     path: '/company',
     component: Layout,
     redirect: '/company/audited',

@@ -22,3 +22,18 @@ export function modifyPassword(data) {
     data
   })
 }
+
+export function resetPassword(id) {
+  return request({
+    url: `/user/resetPassword/${id}`,
+    method: 'put'
+  })
+}
+
+export function pageUser(params) {
+  return request({
+    url: `/user/pageUser`,
+    method: 'get',
+    params
+  })
+}
