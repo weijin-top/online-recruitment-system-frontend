@@ -145,7 +145,7 @@ export default {
       this.updateMessageRead(newValue)
     }
   },
-  created() {
+ async created() {
     // 监听websocke收到消息发送来的事件
     EventBus.$on('websocket-message', this.handleMessage)
     // 获取自己id
@@ -160,7 +160,12 @@ export default {
       this.quicklanguage = this.recruiterQuickLanguage()
     }
 
-    this.fetchData()
+    await this.fetchData()
+    const type = this.$route.query.type;
+    if (type === 1) {
+      // 职位详情页跳转,获取到聊天列表第一个
+      this.getMutualRecord(this.records[0])
+    }
   },
   updated() {
     // 收到或发送信息股滚动条滚动到最下面

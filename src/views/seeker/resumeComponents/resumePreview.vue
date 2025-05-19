@@ -233,7 +233,7 @@ export default {
     this.getResume()
   },
   beforeDestroy() {
-    this.userId = null
+    // this.userId = null
   },
   methods: {
     exportToPdf() {

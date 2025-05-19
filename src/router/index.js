@@ -69,7 +69,7 @@ export const constantRoutes = [
     children: [{
       path: 'msgIndex',
       name: 'MsgIndex',
-      component: () => import('@/views/message/indx'),
+      component: () => import('@/views/message/index'),
       meta: { title: '消息', icon: 'dashboard' }
     }]
   },

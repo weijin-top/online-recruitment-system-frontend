@@ -17,12 +17,22 @@
         </div>
       </div>
       <!-- 右边按钮 -->
-      <div><el-button
+      <div>
+        <el-button
         type="primary"
         class="btn-style"
         :disabled="positionDetail.rdId !== null"
         @click="handleDelivery(positionDetail.id)"
-      >{{ positionDetail.rdId !== null ? '已投递':'投递职位' }}</el-button></div>
+        > {{ positionDetail.rdId !== null ? '已投递':'投递职位' }}
+        </el-button>
+        <el-button
+          type="primary"
+          class="btn-style chat-btn"
+          @click="goToChat()"
+        >
+          <i class="fa fa-comment-o" aria-hidden="true"/>联系HR
+        </el-button>
+      </div>
     </div>
     <!-- 岗位要求/公司信息 -->
     <div class="between-contianer">
@@ -70,6 +80,23 @@ export default {
     this.queryPositionDetialById(this.currentPositionId)
   },
   methods: {
+    goToChat() {
+      const jsonMsg = {
+        receiverId: this.positionDetail.userId,
+        content: `您好，看到您发布的【${this.positionDetail.name}】职位信息，我很感兴趣，希望可以进一步沟通`,
+        senderId: getUserId()
+      }
+      // websocket发送信息
+      this.$sendMessage(jsonMsg)
+      this.navigateToChat()
+    },
+    // 提取公共的导航逻辑
+    navigateToChat() {
+      this.$router.push({
+        path: '/message',
+        query: {type : 1}
+      })
+    },
     handleDelivery(positionId) {
       saveResumeDelivery(positionId).then(res => {
         const success = this.handleResult(res)
